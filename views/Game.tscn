@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy2d32edgqwv"]
+
+[ext_resource type="Script" uid="uid://don31hji81bgv" path="res://views/Game.cs" id="1_j5piy"]
+[ext_resource type="Texture2D" uid="uid://gflrqts57o6o" path="res://icon.svg" id="2_leryn"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_j5piy")
+
+[node name="PauseGroup" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Character" type="TextureRect" parent="PauseGroup"]
+unique_name_in_owner = true
+offset_right = 128.0
+offset_bottom = 128.0
+texture = ExtResource("2_leryn")
+
+[node name="Control" type="Control" parent="PauseGroup"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
