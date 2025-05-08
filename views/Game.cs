@@ -23,27 +23,15 @@ public partial class Game : Node2D
   {
     var direction = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
     _character.Position += direction * MOVE_SPEED * (float)delta;
-
-    if (!_selectPressed && Input.GetActionStrength("select") != 0)
+    (bool selected, bool canceled) oldPressed = (_selectPressed, _cancelPressed);
+    (bool selected, bool canceled) newPressed = (Input.GetActionStrength("select") != 0, Input.GetActionStrength("cancel") != 0);
+    (_selectPressed, _cancelPressed) = newPressed;
+    if (oldPressed != newPressed)
     {
-      _selectPressed = true;
-      _character.Modulate = new Color(0, 1, 0, 1);
-    }
-    else if (_selectPressed && Input.GetActionStrength("select") == 0)
-    {
-      _selectPressed = false;
-      _character.Modulate = new Color(1, 1, 1, 1);
-    }
-
-    if (!_cancelPressed && Input.GetActionStrength("cancel") != 0)
-    {
-      _cancelPressed = true;
-      _character.Modulate = new Color(1, 0, 0, 1);
-    }
-    else if (_cancelPressed && Input.GetActionStrength("cancel") == 0)
-    {
-      _cancelPressed = false;
-      _character.Modulate = new Color(1, 1, 1, 1);
+      if (newPressed.selected || newPressed.canceled)
+        _character.Modulate = new Color(newPressed.canceled ? 1 : 0, newPressed.selected ? 1 : 0, 0, 1);
+      else 
+        _character.Modulate = new Color(1, 1, 1, 1);
     }
   }
 }
